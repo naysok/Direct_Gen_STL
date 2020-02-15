@@ -9,8 +9,8 @@ from direct_gen_stl import gen_stl, grid
 time1 = time.time()
 
 
-gs = gen_stl.GEN_STL()
 gg = grid.Grid()
+gs = gen_stl.GEN_STL()
 
 
 resolution = 100
