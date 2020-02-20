@@ -29,7 +29,7 @@ class ImageProcessing():
         return cl_l
 
 
-    def get_mask(self, path):
+    def get_mask(self, path, threshold):
 
         img = Image.open(path)
 
@@ -47,7 +47,7 @@ class ImageProcessing():
                 value = c[0]
 
                 ### null
-                if value >> 6:
+                if value >> threshold:
                     sub.append(1)
                     # print("1")
                 
