@@ -26,7 +26,7 @@ def create_dummy_data_by_cylinder(grid, mask):
             z = '{:.8f}'.format(point[2])
             ax = x
             ay = y
-            az = z
+            az = 0
             m = mask[i][j]
 
             pt_vec_mask = (str(x) + "," + str(y) + "," + str(z) + ","
@@ -51,14 +51,14 @@ im = image_processing.ImageProcessing()
 
 
 resolution = 500
-raddd = 100
+raddd = 250
 
 image_path = []
 mask_path = "../IMAGES/500_AAA.jpg"
 
 
 g = gg.gen_grid_cylinder(resolution, raddd)
-m = im.get_mask(mask_path, 1)
+m = im.get_mask(mask_path, 5)
 
 dummy = create_dummy_data_by_cylinder(g, m)
 # print(dummy)
