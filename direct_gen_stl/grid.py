@@ -74,16 +74,15 @@ class Grid():
     def gen_grid_cylinder(self, count, rad):
 
         grid = []
+        ut = util.UTIL()
 
-        for i in range(counts):
+        for i in range(count):
             sub_g = []
+            ii = ut.remap_number(i, 0, count-1, 0, math.pi *2)
+
             for j in range(count):
 
-                p = 
-                center_length = math.sqrt(math.pow((i - center[0]), 2) + math.pow((j - center[0]), 2)) 
-                z = math.cos(ut.remap_number(center_length, 0, count, 0, math.pi))
-                p = (i, j, z * amp)
-
+                p = (math.cos(ii) * rad, math.sin(ii) * rad, j)
 
                 sub_g.append(p)
             grid.append(sub_g)
@@ -140,8 +139,54 @@ class Grid():
                 grid_top.append(sub_top)
                 grid_bottom.append(sub_bottom)
         
+        return grid
 
-    
+
+    # normal vector
+    def gen_grid_from_input_grid(self, p, v, colors, amp):
+
+        ut = util.UTIL()
+
+        grid = []
+
+        count = len(p)
+
+        if len(colors[0][0]) == 3:
+
+            for i in range(count):
+                sub = []
+                for j in range(count):
+
+                    _pt = p[i][j]
+                    _vec = v[i][j]
+
+                    ### COLOR CHANNEL
+                    RR, GG, BB = colors[i][j]
+                    RR = ut.remap_number(RR, 0, 255, 0, amp)
+
+                    p_moved = ut.move_pt_vec(_pt, ut.vector_multiplicate(_vec, RR))
+
+                    sub.append(p_moved)
+                grid.append(sub)
+            
+
+        if len(colors[0][0]) == 4:
+            for i in range(count):
+                sub = []
+                for j in range(count):
+
+                    _pt = p[i][j]
+                    _vec = v[i][j]
+
+                    ### COLOR CHANNEL
+                    RR, GG, BB, AA = colors[i][j]
+                    RR = ut.remap_number(RR, 0, 255, 0, amp)
+
+                    p_moved = ut.move_pt_vec(_pt, ut.vector_multiplicate(_vec, RR))
+
+                    sub.append(p_moved)
+                grid.append(sub)
+        
         return grid
 
 
@@ -175,7 +220,7 @@ class Grid():
                 
                 mask_tf = mask_grid[u][v]
 
-                if mask_tf == 1:
+                if mask_tf == 1 or mask_tf == "1":
                     pt4 = []
 
                     pt4.append(grid[u][v])
